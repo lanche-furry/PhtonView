@@ -87,7 +87,7 @@ fun SettingsScreen(
         scope.launch {
             val release = UpdateChecker.fetchLatestRelease()
             if (release == null) {
-                android.widget.Toast.makeText(context, "检查更新失败", android.widget.Toast.LENGTH_SHORT).show()
+                android.widget.Toast.makeText(context, "暂无发行版或网络异常", android.widget.Toast.LENGTH_SHORT).show()
             } else if (!UpdateChecker.isNewer(UpdateChecker.getCurrentVersion(), release.version)) {
                 android.widget.Toast.makeText(context, "当前已是最新版本", android.widget.Toast.LENGTH_SHORT).show()
             } else {
