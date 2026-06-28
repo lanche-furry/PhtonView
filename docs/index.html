@@ -415,71 +415,6 @@
         @keyframes uiSwitch { 0%, 45% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.08); opacity: 1; } 55%, 100% { transform: scale(1); opacity: 0.5; } }
         @keyframes codeType { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; background: rgba(79,140,201,0.25); } }
 
-        /* Showcase */
-        .showcase {
-            padding: 140px 0;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-        .showcase-text h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            margin-bottom: 24px;
-        }
-        .showcase-text p { color: var(--muted); font-size: 1.1rem; margin-bottom: 32px; }
-        .showcase-list { list-style: none; }
-        .showcase-list li {
-            display: flex; align-items: center; gap: 14px;
-            padding: 12px 0; color: var(--text); font-size: 1rem;
-        }
-        .showcase-list li::before {
-            content: '✓'; width: 26px; height: 26px;
-            border-radius: 50%; background: var(--accent-dim);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--accent); font-weight: 700; font-size: 0.8rem;
-        }
-        .showcase-visual {
-            display: flex; justify-content: center;
-            perspective: 1200px;
-        }
-        .glass-card {
-            width: 100%; max-width: 420px;
-            padding: 40px;
-            border-radius: 28px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-            transform: rotateY(8deg) rotateX(4deg);
-            transition: transform 0.5s ease;
-        }
-        .glass-card:hover { transform: rotateY(0deg) rotateX(0deg); }
-        .stat-row { display: flex; justify-content: space-between; margin-bottom: 24px; }
-        .stat-row:last-child { margin-bottom: 0; }
-        .stat h4 { font-size: 1.8rem; color: var(--accent); font-weight: 800; }
-        .stat p { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
-        .progress-bar {
-            width: 100%; height: 6px;
-            background: rgba(255,255,255,0.06);
-            border-radius: 3px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            border-radius: 3px;
-            width: 0;
-            transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
         .deps {
             padding: 140px 0 100px;
             background: var(--bg-2);
@@ -559,7 +494,6 @@
             </a>
             <div class="nav-links">
                 <a href="#features">功能</a>
-                <a href="#showcase">亮点</a>
                 <a href="#deps">开源依赖</a>
                 <a href="https://github.com/lanche-furry/PhtonView">GitHub</a>
             </div>
@@ -678,39 +612,6 @@
         </div>
     </section>
 
-    <section class="showcase" id="showcase">
-        <div class="container">
-            <div class="showcase-grid">
-                <div class="showcase-text reveal">
-                    <h2>为什么摄影师<br>选择 PhtonView</h2>
-                    <p>无需笨重的电脑，只需一根 USB 线或同一局域网，即可将手机变成强大的相机遥控终端。星空、延时、产品拍摄、自拍全家福，统统不在话下。</p>
-                    <ul class="showcase-list">
-                        <li>毫秒级快门触发响应</li>
-                        <li>支持数百款 Canon / Nikon / Sony 等单反无反</li>
-                        <li>后台间隔拍摄，手机息屏也继续工作</li>
-                        <li>持续更新，新增相机支持与功能</li>
-                    </ul>
-                </div>
-                <div class="showcase-visual reveal">
-                    <div class="glass-card">
-                        <div class="stat-row">
-                            <div class="stat"><h4 class="counter" data-target="2500">0</h4><p>米最大 USB 延长</p></div>
-                            <div class="stat"><h4 class="counter" data-target="99">0</h4><p>% 快门响应成功率</p></div>
-                        </div>
-                        <div class="progress-bar"><div class="progress-fill" data-width="92%"></div></div>
-                        <p style="margin-top: 12px; color: var(--muted); font-size: 0.85rem;">用户满意度</p>
-                        <div class="stat-row" style="margin-top: 32px;">
-                            <div class="stat"><h4>RAW+JPG</h4><p>格式支持</p></div>
-                            <div class="stat"><h4>Bulb</h4><p>长曝光控制</p></div>
-                        </div>
-                        <div class="progress-bar"><div class="progress-fill" data-width="100%"></div></div>
-                        <p style="margin-top: 12px; color: var(--muted); font-size: 0.85rem;">核心功能覆盖率</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section class="deps" id="deps">
         <div class="container">
             <div class="section-head reveal">
@@ -773,27 +674,7 @@
         }, { threshold: 0.12 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.querySelectorAll('.counter').forEach(counter => {
-                        const target = +counter.dataset.target;
-                        let current = 0;
-                        const inc = target / 60;
-                        const timer = setInterval(() => {
-                            current += inc;
-                            if (current >= target) { current = target; clearInterval(timer); }
-                            counter.textContent = Math.floor(current) + (target < 100 ? '%' : '+');
-                        }, 25);
-                    });
-                    entry.target.querySelectorAll('.progress-fill').forEach(bar => {
-                        setTimeout(() => bar.style.width = bar.dataset.width, 200);
-                    });
-                    counterObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.4 });
-        document.querySelectorAll('.showcase-visual, .glass-card').forEach(el => counterObserver.observe(el));
+
     </script>
 </body>
 </html>
